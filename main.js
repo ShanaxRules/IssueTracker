@@ -3,6 +3,7 @@ function submitIssue(e) {
     const description = getInputValue('issueDescription');
     const severity = getInputValue('issueSeverity');
     const assignedTo = getInputValue('issueAssignedTo');
+    const getFile = getInputValue('attachedFile');
     const id = Math.floor(Math.random() * 10000) + '';
     const status = 'Open';
 
@@ -14,7 +15,7 @@ function submitIssue(e) {
     else {
         document.getElementById('add-issue').removeAttribute("data-toggle", "modal");
         document.getElementById('add-issue').removeAttribute("data-target", "#emptyField")
-        const issue = { id, description, severity, assignedTo, status };
+        const issue = { id, description, severity, assignedTo, status , getFile };
         let issues = [];
         if (localStorage.getItem('issues')) {
             issues = JSON.parse(localStorage.getItem('issues'));
@@ -49,15 +50,20 @@ const fetchIssues = () => {
     const issuesList = document.getElementById('issuesList');
     issuesList.innerHTML = '';
 
-    for (var i = 0; i < issues.length; i++) {
-        const { id, description, severity, assignedTo, status } = issues[i];
+    
 
+    
+
+    for (var i = 0; i < issues.length; i++) {
+        const { id, description, severity, assignedTo, status , getFile } = issues[i];
+        
         issuesList.innerHTML += `<div class="well">
                                 <h6>Issue ID: ${id} </h6>
                                 <p><span class="label label-info"> ${status} </span></p>
                                 <h3> ${description} </h3>
                                 <p><span class="glyphicon glyphicon-time"></span> ${severity}</p>
                                 <p><span class="glyphicon glyphicon-user"></span> ${assignedTo}</p>
+                                <p>Selected file is :<a href="${getFile}" download="${getFile}">${getFile}</a></p>
                                 <button onclick="closeIssue(${id})" class="btn btn-warning">Close</button>
                                 <button onclick="deleteIssue(${id})" class="btn btn-danger">Delete</button>
                                 </div>`;
