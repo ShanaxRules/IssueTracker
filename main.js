@@ -3,7 +3,7 @@ function submitIssue(e) {
     const description = getInputValue('issueDescription');
     const severity = getInputValue('issueSeverity');
     const assignedTo = getInputValue('issueAssignedTo');
-    const id = Math.floor(Math.random() * 100000000) + '';
+    const id = Math.floor(Math.random() * 10000) + '';
     const status = 'Open';
 
     if ((description.length == 0) || (assignedTo.length == 0)) {
